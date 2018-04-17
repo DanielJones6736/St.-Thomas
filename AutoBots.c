@@ -10,8 +10,10 @@ task main()
 //The nut is on the front left
 while(true)
 {
-	int leftside=vexRT[Ch3];
+  int leftside=vexRT[Ch3];
   int rightside=vexRT[Ch2];
+  int clawup=vexRT[Btn6u];
+  int clawdown=vexRT[Btn6d];
   //Left controls
   	if (leftside >= 10){
   		motor[LeftF]=leftside;
@@ -38,5 +40,15 @@ while(true)
   		motor[RightF]=0;
   		motor[RightB]=0;
   	}
+	//claw stuff
+	if (claw up == 1) {
+	motor[clawMotor]=127;
+	}
+	else if (clawdown == 1) {
+	motor[clawMotor]=-127;	
+	}
+	else {
+	motor[clawMotor]=0;	
+	}
 }
 }
