@@ -6,7 +6,6 @@
 
 task main()
 {
-//Driver Controls Heck Ya BOI
 //The nut is on the front left
 while(true)
 {
@@ -14,21 +13,27 @@ while(true)
   int rightside=vexRT[Ch2];
   int clawup=vexRT[Btn6u];
   int clawdown=vexRT[Btn6d];
+
   //Left controls
-  	if (leftside >= 10){
+  	if (leftside >= 10)
+	{
   		motor[LeftF]=leftside;
   		motor[LeftB]=leftside;
   	}
-  	else if (leftside <= -10){
+  	else if (leftside <= -10)
+	{
   		motor[LeftF]=leftside;
   		motor[LeftB]=leftside;
   	}
-  	else {
+  	else
+	{
   		motor[LeftF]=0;
   		motor[LeftB]=0;
   	}
-  	  //Right controls
-  	if (rightside >= 10){
+	
+  	//Right controls
+  	if (rightside >= 10)
+	{
   		motor[RightF]=rightside;
   		motor[RightB]=rightside;
   	}
@@ -36,19 +41,24 @@ while(true)
   		motor[RightF]=rightside;
   		motor[RightB]=rightside;
   	}
-  	else {
+  	else 
+	{
   		motor[RightF]=0;
   		motor[RightB]=0;
   	}
+	
 	//claw stuff
-	if (claw up == 1) {
-	motor[clawMotor]=127;
+	if (claw up == 1) 
+	{
+		motor[clawMotor]=127;
 	}
-	else if (clawdown == 1) {
-	motor[clawMotor]=-127;	
+	else if (clawdown == 1)
+	{
+		motor[clawMotor]=-127;	
 	}
-	else {
-	motor[clawMotor]=0;	
+	else 
+	{
+		motor[clawMotor]=0;	
 	}
 }
 }
