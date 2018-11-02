@@ -84,29 +84,41 @@ else if(direction==2){		//any problems from direction=1 applies here (but in rev
 else if(direction==3){
 	motor[Cannon]=127;
 	wait1Msec(750);
-	//turn to cap
-	while(getMotorEncoder(RightF) < encVal){
-	motor[LeftF]=motor[LeftB]=-127;
-	motor[RightF]=motor[RightB]=127;
+	resetMotorEncoder(RightF);
+	while(getMotorEncoder(RightF) < encVal/8){
+		motor[LeftF]=motor[LeftB]=-127;
+		motor[RightF]=motor[RightB]=127;
 	}
 	//go to cap
-	motor[LeftF]=motor[LeftB]=127;
-	motor[RightF]=motor[RightB]=127;
-	wait1Msec(1000);
+	while(getMotorEncoder(LeftF) < 1500){
+		motor[LeftF]=motor[LeftB]=127;
+		motor[RightF]=motor[RightB]=127;
+	}
 	//lower arm 
 	motor[Arm]=-63;
 	wait1Msec(500);
 	//move under cap
 	resetMotorEncoder(RightF);
 	while(getMotorEncoder(RightF) < 500){
-	motor[LeftF]=motor[LeftB]=63;
-	motor[RightF]=motor[RightB]=63;
+		motor[LeftF]=motor[LeftB]=63;
+		motor[RightF]=motor[RightB]=63;
 	}
 	//raise arm to flip cap
 	motor[Arm]=127;
 	wait1Msec(750);
-	//I have no clue how to flip the cap
 	//turn to plat
+	resetMotorEncoder(RightF);
+	while(getMotorEncoder(RightF) < encVal/4){
+		motor[LeftF]=motor[LeftB]=-127;
+		motor[RightF]=motor[RightB]=127;
+	}
+	//move towards plat
+	resetMotorEncoder(RightF);
+	while(getMotorEncoder(RightF) < encVal/4){
+		motor[LeftF]=motor[LeftB]=-127;
+		motor[RightF]=motor[RightB]=127;
+	}
+	//turn to mid plat
 	resetMotorEncoder(RightF);
 	while(getMotorEncoder(RightF) < encVal/8){
 		motor[LeftF]=motor[LeftB]=-127;
@@ -172,7 +184,92 @@ else if(direction==6){
 	motor[RightF]=motor[RightB]=127;
 	wait1Msec(1350);
 }
-
+else if(direction==7){
+	//go to cap
+	while(getMotorEncoder(LeftF) < 1500){
+		motor[LeftF]=motor[LeftB]=127;
+		motor[RightF]=motor[RightB]=127;
+	}
+	//lower arm 
+	motor[Arm]=-63;
+	wait1Msec(500);
+	//move under cap
+	resetMotorEncoder(RightF);
+	while(getMotorEncoder(RightF) < 500){
+		motor[LeftF]=motor[LeftB]=63;
+		motor[RightF]=motor[RightB]=63;
+	}
+	//raise arm to flip cap
+	motor[Arm]=127;
+	wait1Msec(750);
+	//turn to plat
+	resetMotorEncoder(RightF);
+	while(getMotorEncoder(RightF) < encVal/4){
+		motor[LeftF]=motor[LeftB]=-127;
+		motor[RightF]=motor[RightB]=127;
+	}
+	//moves to platform
+	resetMotorEncoder(RightF);
+	while(getMotorEncoder(RightF) < 1000){		//unrelated to encVal. Just find a value that works
+		motor[LeftF]=motor[LeftB]=127;
+		motor[RightF]=motor[RightB]=127;
+	}
+	//turns to dead mid platform
+	resetMotorEncoder(RightF);
+	while(getMotorEncoder(RightF) < encVal/8){
+		motor[LeftF]=motor[LeftB]=-127;
+		motor[RightF]=motor[RightB]=127;
+	}
+	//moves onto platform
+	resetMotorEncoder(RightF);
+	while(getMotorEncoder(RightF) < 750){	
+		motor[LeftF]=motor[LeftB]=127;
+		motor[RightF]=motor[RightB]=127;
+	}
+}
+else if(direction==8){
+	//go to cap
+	while(getMotorEncoder(LeftF) < 1500){
+		motor[LeftF]=motor[LeftB]=127;
+		motor[RightF]=motor[RightB]=127;
+	}
+	//lower arm 
+	motor[Arm]=-63;
+	wait1Msec(500);
+	//move under cap
+	resetMotorEncoder(RightF);
+	while(getMotorEncoder(RightF) < 500){
+		motor[LeftF]=motor[LeftB]=63;
+		motor[RightF]=motor[RightB]=63;
+	}
+	//raise arm to flip cap
+	motor[Arm]=127;
+	wait1Msec(750);
+	//turn to plat
+	resetMotorEncoder(LeftF);
+	while(getMotorEncoder(LeftF) < encVal/4){
+		motor[LeftF]=motor[LeftB]=127;
+		motor[RightF]=motor[RightB]=-127;
+	}
+	//moves to platform
+	resetMotorEncoder(LeftF);
+	while(getMotorEncoder(LeftF) < 1000){		//unrelated to encVal. Just find a value that works
+		motor[LeftF]=motor[LeftB]=127;
+		motor[RightF]=motor[RightB]=127;
+	}
+	//turns to dead mid platform
+	resetMotorEncoder(LeftF);
+	while(getMotorEncoder(LeftF) < encVal/8){
+		motor[LeftF]=motor[LeftB]=127;
+		motor[RightF]=motor[RightB]=-127;
+	}
+	//moves onto platform
+	resetMotorEncoder(RightF);
+	while(getMotorEncoder(RightF) < 750){	
+		motor[LeftF]=motor[LeftB]=127;
+		motor[RightF]=motor[RightB]=127;
+	}
+}
 else{		//to account for user error in inputing the variable
 	motor[LeftF]=motor[LeftB]=-127;
 	motor[RightF]=motor[RightB]=127;
