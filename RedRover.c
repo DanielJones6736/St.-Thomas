@@ -17,7 +17,7 @@ resetMotorEncoder(LeftF);
 resetMotorEncoder(LeftB);
 resetMotorEncoder(RightF);
 resetMotorEncoder(RightB);
-int direction = 7;
+int direction = 1;
 int encVal = 1000;
 //Use encoder Values from other file
 //REMOVE THIS WAIT STATE FOR COMPETITION IT IS ONLY TO GET HANDS OUT OF THE WAY
@@ -27,55 +27,199 @@ wait1Msec(1000);
 if(direction==1){
 	//this will be on the far side from flags
 	//it will pick flat cap put on closest low scoring spot and park
+  	//go to cap
+	while(getMotorEncoder(LeftF) < 1750){
+		motor[LeftF]=motor[LeftB]=127;
+		motor[RightF]=motor[RightB]=127;
+	}
+	//raise arm to grab cap
+	motor[Arm]=127;
+	wait1Msec(750);
+  //turn opp. of pole
+	resetMotorEncoder(LeftF);
+  while(getMotorEncoder(LeftF) < encVal/4){
+    motor[LeftF]=motor[LeftB]=127;
+		motor[RightF]=motor[RightB]=-127;
+  }
+  //Put cap on pole
+  motor[Arm]=63;
+	wait1Msec(1000);
+	//drive forward to avoid cap
+	resetMotorEncoder(LeftF);
+	while(getMotorEncoder(LeftF) < 1250){
+		motor[LeftF]=motor[LeftB]=127;
+		motor[RightF]=motor[RightB]=127;
+	}
+	//Put cap on pole
+  motor[Arm]=63;
+	wait1Msec(1000);
+	//turn to mid of plat
+	resetMotorEncoder(LeftF);
+  while(getMotorEncoder(LeftF) < encVal/8){
+    motor[LeftF]=motor[LeftB]=127;
+		motor[RightF]=motor[RightB]=-127;
+  }
+  //go onto plat
+  resetMotorEncoder(LeftF);
+  while(getMotorEncoder(LeftF) < 1000){
+		motor[LeftF]=motor[LeftB]=127;
+		motor[RightF]=motor[RightB]=127;
+	}
 }
 else if(direction==2){
-	
-}
-else if(direction==3){		//this just flips the cap on the near side of the flag and parks
-													//these two are only used if alliance scores better than us on respective side
-													//as such will probably not be used as most robots will score flags
-	//go to cap											
-	while(getMotorEncoder(LeftF) < 1500){
+  while(getMotorEncoder(LeftF) < 1750){
 		motor[LeftF]=motor[LeftB]=127;
 		motor[RightF]=motor[RightB]=127;
 	}
-	//lower arm
-	motor[Arm]=-63;
-	wait1Msec(500);
-	//move under cap
-	resetMotorEncoder(RightF);			//**
-	while(getMotorEncoder(RightF) < 500){
-		motor[LeftF]=motor[LeftB]=63;
-		motor[RightF]=motor[RightB]=63;
-	}
-	//raise arm to flip cap
+	//raise arm to grab cap
 	motor[Arm]=127;
 	wait1Msec(750);
-	
+  //turn opp. of pole
+	resetMotorEncoder(RightF);
+  while(getMotorEncoder(RightF) < encVal/4){
+    motor[LeftF]=motor[LeftB]=-127;
+		motor[RightF]=motor[RightB]=127;
+  }
+  //Put cap on pole
+  motor[Arm]=63;
+	wait1Msec(1000);
+	//drive forward to avoid cap
+	resetMotorEncoder(LeftF);
+	while(getMotorEncoder(LeftF) < 1250){
+		motor[LeftF]=motor[LeftB]=127;
+		motor[RightF]=motor[RightB]=127;
+	}
+	//arm off pole
+  motor[Arm]=63;
+	wait1Msec(1000);
+	//turn to mid of plat
+	resetMotorEncoder(RightF);
+  while(getMotorEncoder(RightF) < encVal/8){
+    motor[LeftF]=motor[LeftB]=-127;
+		motor[RightF]=motor[RightB]=127;
+  }
+  //go onto plat
+  resetMotorEncoder(LeftF);
+  while(getMotorEncoder(LeftF) < 1000){
+		motor[LeftF]=motor[LeftB]=127;
+		motor[RightF]=motor[RightB]=127;
+	}
 }
-//*
+else if(direction==3){
+	//this just flips the cap on the near side of the flag and parks
+	//these two are only used if alliance scores better than us on respective side
+	//as such will probably not be used as most robots will score flags
+
+		
+	//go to cap
+	while(getMotorEncoder(LeftF) < 1750){
+		motor[LeftF]=motor[LeftB]=127;
+		motor[RightF]=motor[RightB]=127;
+	}
+
+	//raise arm to grab cap
+	motor[Arm]=127;
+	wait1Msec(750);
+	//move back to originial tile with cap
+	resetMotorEncoder(LeftF);
+  while(getMotorEncoder(LeftF) > -1700){
+    motor[LeftF]=motor[LeftB]=-127;
+		motor[RightF]=motor[RightB]=-127;
+  }
+  //Put cap on pole
+  motor[Arm]=63;
+	wait1Msec(1000);
+	//drive forward to avoid cap
+	resetMotorEncoder(LeftF);
+	while(getMotorEncoder(LeftF) < 250){
+		motor[LeftF]=motor[LeftB]=127;
+		motor[RightF]=motor[RightB]=127;
+	}
+	//Take claw off pole
+  motor[Arm]=-63;
+	wait1Msec(1000);
+	//turn to plat
+	resetMotorEncoder(RightF);
+  while(getMotorEncoder(RightF) < (encVal/8) +100){
+    motor[LeftF]=motor[LeftB]=-127;
+		motor[RightF]=motor[RightB]=127;
+  }
+  //go to plat
+  resetMotorEncoder(LeftF);
+  while(getMotorEncoder(LeftF) < 1250){
+		motor[LeftF]=motor[LeftB]=127;
+		motor[RightF]=motor[RightB]=127;
+	}
+	//turn to middle of plat
+	resetMotorEncoder(RightF);
+  while(getMotorEncoder(RightF) < encVal/4){
+    motor[LeftF]=motor[LeftB]=-127;
+		motor[RightF]=motor[RightB]=127;
+  }
+  //go onto plat
+  resetMotorEncoder(LeftF);
+  while(getMotorEncoder(LeftF) < 1000){
+		motor[LeftF]=motor[LeftB]=127;
+		motor[RightF]=motor[RightB]=127;
+	}
+}
+
 else if(direction==4){
-	//go to cap											//**
-	while(getMotorEncoder(LeftF) < 1500){
+//go to cap
+	while(getMotorEncoder(LeftF) < 1750){
 		motor[LeftF]=motor[LeftB]=127;
 		motor[RightF]=motor[RightB]=127;
 	}
-	//lower arm
-	motor[Arm]=-63;
-	wait1Msec(500);
-	//move under cap
-	resetMotorEncoder(RightF);			//***
-	while(getMotorEncoder(RightF) < 500){
-		motor[LeftF]=motor[LeftB]=63;
-		motor[RightF]=motor[RightB]=63;
-	}
-	//raise arm to flip cap
+	//raise arm to grab cap
 	motor[Arm]=127;
 	wait1Msec(750);
-	
+	//move back to original tile with cap
+	resetMotorEncoder(LeftF);
+  while(getMotorEncoder(LeftF) > -1700){
+    motor[LeftF]=motor[LeftB]=-127;
+		motor[RightF]=motor[RightB]=-127;
+  }
+  //Put cap on pole
+  motor[Arm]=63;
+	wait1Msec(1000);		//bring arm back down eventually by driving forawrd
+	//drive forward to avoid cap
+	resetMotorEncoder(LeftF);
+	while(getMotorEncoder(LeftF) < 250){
+		motor[LeftF]=motor[LeftB]=127;
+		motor[RightF]=motor[RightB]=127;
+	}
+	//Take claw off pole
+  motor[Arm]=-63;
+	wait1Msec(1000);
+	//turn to plat
+	resetMotorEncoder(LeftF);
+  while(getMotorEncoder(LeftF) < (encVal/8) +100){
+    motor[LeftF]=motor[LeftB]=127;
+		motor[RightF]=motor[RightB]=-127;
+  }
+  //go to plat
+  resetMotorEncoder(LeftF);
+  while(getMotorEncoder(LeftF) < 1250){
+		motor[LeftF]=motor[LeftB]=127;
+		motor[RightF]=motor[RightB]=127;
+	}
+	//turn to middle of plat
+	resetMotorEncoder(LeftF);
+  while(getMotorEncoder(LeftF) < encVal/4){
+    motor[LeftF]=motor[LeftB]=127;
+		motor[RightF]=motor[RightB]=-127;
+  }
+  //go onto plat
+  resetMotorEncoder(LeftF);
+  while(getMotorEncoder(LeftF) < 1000){
+		motor[LeftF]=motor[LeftB]=127;
+		motor[RightF]=motor[RightB]=127;
+	}
 }
+
 else{		//to account for user error in inputing the variable
 	motor[LeftF]=motor[LeftB]=-127;
 	motor[RightF]=motor[RightB]=127;
 	wait1Msec(5000);
+}
 }
