@@ -20,8 +20,6 @@ task main()
 	{
 	  int leftside=vexRT[Ch3];		//sets respective buttons or joysticks to a variable for easier to read code
 	  int rightside=vexRT[Ch2];
-	  //int clawclose=vexRT[Btn6U];
-	  //int clawopen=vexRT[Btn6D];
 	  int armup=vexRT[Btn5U];
 	  int armdown=vexRT[Btn5D];
 
@@ -29,12 +27,12 @@ task main()
 	  //can be changed to lower numbers like 5 to give driver more control but don't go much lower
 
 	  //Left controls
-		if (leftside >= 10)
+		if (leftside >= 15)
 		{
 			motor[LeftF]=leftside;
 			motor[LeftB]=leftside;			//sets front and back motors on left to joystick input 10 to 127
 		}
-		else if (leftside <= -10)			//-127 to -10
+		else if (leftside <= -15)			//-127 to -10
 		{
 			motor[LeftF]=leftside;
 			motor[LeftB]=leftside;
@@ -46,12 +44,12 @@ task main()
 		}
 
 		//Right controls
-		if (rightside >= 10)		//same comments apply from above
+		if (rightside >= 15)		//same comments apply from above
 		{
 			motor[RightF]=rightside;
 			motor[RightB]=rightside;
 		}
-		else if (rightside <= -10)
+		else if (rightside <= -15)
 		{
 			motor[RightF]=rightside;
 			motor[RightB]=rightside;
@@ -64,15 +62,15 @@ task main()
 		//Arm controls
 		if (armup == 1)		//same comments apply from above
 		{											//if both buttons pressed claw will go up due to order of if statements
-			motor[Arm]=127;
+			motor[Arm]=85;
 		}
 		else if (armdown == 1)
 		{
-			motor[Arm]=-127;
+			motor[Arm]=-85;
 		}
 		else
 		{
-			motor[Arm]=0;
+			motor[Arm]=20;
 		}
 	}
 }
