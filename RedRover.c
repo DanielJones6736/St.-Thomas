@@ -10,6 +10,8 @@
 	Make sure to copy all changes from BotCoin.c's autonomous into here
 	also CHANGE if we can get some enconders because wait statements are inconsistent
 */
+const int direction = 1;
+
 task main()
 {
 //change direction in accordance with notebook (1-6)
@@ -17,18 +19,19 @@ resetMotorEncoder(LeftF);
 resetMotorEncoder(LeftB);
 resetMotorEncoder(RightF);
 resetMotorEncoder(RightB);
-int direction = 1;
-int encVal = 1000;
+
+int turnVal = 1000;
+int disVal = 1000;
 //Use encoder Values from other file
 //REMOVE THIS WAIT STATE FOR COMPETITION IT IS ONLY TO GET HANDS OUT OF THE WAY
-wait1Msec(1000);
+
 
 
 if(direction==1){
 	//this will be on the far side from flags
 	//it will pick flat cap put on closest low scoring spot and park
-  	//go to cap
-	while(getMotorEncoder(LeftF) < 1750){
+  //go to cap
+	while(getMotorEncoder(LeftF) < 500){
 		motor[LeftF]=motor[LeftB]=127;
 		motor[RightF]=motor[RightB]=127;
 	}
@@ -37,10 +40,16 @@ if(direction==1){
 	wait1Msec(750);
   //turn opp. of pole
 	resetMotorEncoder(LeftF);
-  while(getMotorEncoder(LeftF) < encVal/4){
+  while(getMotorEncoder(LeftF) < turnVal/4){
     motor[LeftF]=motor[LeftB]=127;
 		motor[RightF]=motor[RightB]=-127;
   }
+  //go to pole
+  resetMotorEncoder(LeftF);
+  while(getMotorEncoder(LeftB) > -500){
+		motor[LeftF]=motor[LeftB]=-127;
+		motor[RightF]=motor[RightB]=-127;
+	}
   //Put cap on pole
   motor[Arm]=63;
 	wait1Msec(1000);
@@ -50,12 +59,9 @@ if(direction==1){
 		motor[LeftF]=motor[LeftB]=127;
 		motor[RightF]=motor[RightB]=127;
 	}
-	//Put cap on pole
-  motor[Arm]=63;
-	wait1Msec(1000);
 	//turn to mid of plat
 	resetMotorEncoder(LeftF);
-  while(getMotorEncoder(LeftF) < encVal/8){
+  while(getMotorEncoder(LeftF) < turnVal/8){
     motor[LeftF]=motor[LeftB]=127;
 		motor[RightF]=motor[RightB]=-127;
   }
@@ -66,7 +72,13 @@ if(direction==1){
 		motor[RightF]=motor[RightB]=127;
 	}
 }
+
+
+
+
+
 else if(direction==2){
+	//go to cap
   while(getMotorEncoder(LeftF) < 1750){
 		motor[LeftF]=motor[LeftB]=127;
 		motor[RightF]=motor[RightB]=127;
@@ -76,10 +88,16 @@ else if(direction==2){
 	wait1Msec(750);
   //turn opp. of pole
 	resetMotorEncoder(RightF);
-  while(getMotorEncoder(RightF) < encVal/4){
+  while(getMotorEncoder(RightF) < turnVal/4){
     motor[LeftF]=motor[LeftB]=-127;
 		motor[RightF]=motor[RightB]=127;
   }
+  //go to pole
+  resetMotorEncoder(LeftF);
+  while(getMotorEncoder(LeftF) > -500){
+		motor[LeftF]=motor[LeftB]=-127;
+		motor[RightF]=motor[RightB]=-127;
+	}
   //Put cap on pole
   motor[Arm]=63;
 	wait1Msec(1000);
@@ -90,11 +108,11 @@ else if(direction==2){
 		motor[RightF]=motor[RightB]=127;
 	}
 	//arm off pole
-  motor[Arm]=63;
+  motor[Arm]=-63;
 	wait1Msec(1000);
 	//turn to mid of plat
 	resetMotorEncoder(RightF);
-  while(getMotorEncoder(RightF) < encVal/8){
+  while(getMotorEncoder(RightF) < turnVal/8){
     motor[LeftF]=motor[LeftB]=-127;
 		motor[RightF]=motor[RightB]=127;
   }
@@ -105,12 +123,17 @@ else if(direction==2){
 		motor[RightF]=motor[RightB]=127;
 	}
 }
+
+
+
+
+
 else if(direction==3){
 	//this just flips the cap on the near side of the flag and parks
 	//these two are only used if alliance scores better than us on respective side
 	//as such will probably not be used as most robots will score flags
 
-		
+
 	//go to cap
 	while(getMotorEncoder(LeftF) < 1750){
 		motor[LeftF]=motor[LeftB]=127;
@@ -122,7 +145,7 @@ else if(direction==3){
 	wait1Msec(750);
 	//move back to originial tile with cap
 	resetMotorEncoder(LeftF);
-  while(getMotorEncoder(LeftF) > -1700){
+  while(getMotorEncoder(LeftF) > -1700){	//orginal plus a little
     motor[LeftF]=motor[LeftB]=-127;
 		motor[RightF]=motor[RightB]=-127;
   }
@@ -140,7 +163,7 @@ else if(direction==3){
 	wait1Msec(1000);
 	//turn to plat
 	resetMotorEncoder(RightF);
-  while(getMotorEncoder(RightF) < (encVal/8) +100){
+  while(getMotorEncoder(RightF) < (turnVal/8) +100){
     motor[LeftF]=motor[LeftB]=-127;
 		motor[RightF]=motor[RightB]=127;
   }
@@ -152,7 +175,7 @@ else if(direction==3){
 	}
 	//turn to middle of plat
 	resetMotorEncoder(RightF);
-  while(getMotorEncoder(RightF) < encVal/4){
+  while(getMotorEncoder(RightF) < turnVal/4){
     motor[LeftF]=motor[LeftB]=-127;
 		motor[RightF]=motor[RightB]=127;
   }
@@ -163,6 +186,10 @@ else if(direction==3){
 		motor[RightF]=motor[RightB]=127;
 	}
 }
+
+
+
+
 
 else if(direction==4){
 //go to cap
@@ -193,7 +220,7 @@ else if(direction==4){
 	wait1Msec(1000);
 	//turn to plat
 	resetMotorEncoder(LeftF);
-  while(getMotorEncoder(LeftF) < (encVal/8) +100){
+  while(getMotorEncoder(LeftF) < (turnVal/8) +100){
     motor[LeftF]=motor[LeftB]=127;
 		motor[RightF]=motor[RightB]=-127;
   }
@@ -205,7 +232,7 @@ else if(direction==4){
 	}
 	//turn to middle of plat
 	resetMotorEncoder(LeftF);
-  while(getMotorEncoder(LeftF) < encVal/4){
+  while(getMotorEncoder(LeftF) < turnVal/4){
     motor[LeftF]=motor[LeftB]=127;
 		motor[RightF]=motor[RightB]=-127;
   }
