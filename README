@@ -1,1 +1,8 @@
 This file is for descriptions/details for my files from 2019-2020 (all in C++)
+
+AutonGUI: test the GUI by itself
+AutonTest: tests the auton w/o drive train and attempts to integrate a GUI in pre-auton
+File_For_Newbies: This is the file that is associated with the guide document
+Gamer: basic complete program that properly uses 'robot-config.cpp'
+Robot_Code2.0: My complete program that was used for competitions
+
